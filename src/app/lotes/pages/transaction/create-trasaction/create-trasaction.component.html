@@ -1,0 +1,65 @@
+<div class="transaction-container">
+  <div class="row">
+    <div class="col-6">
+      <h2>Crear transacción</h2>
+
+      <!-- Formulario con FormGroup -->
+      <form [formGroup]="transactionForm" (ngSubmit)="addTransaction()" class="transaction-form">
+        <div class="form-group">
+          <label for="transactionDate">Fecha</label>
+          <input id="transactionDate" type="date" formControlName="transactionDate" required>
+        </div>
+        <div class="form-group">
+          <label for="amount">Cantidad</label>
+          <input type="number" formControlName="amount" placeholder="Cantidad" required>
+        </div>
+        <div class="form-group">
+          <label for="cost">Valor</label>
+          <input type="number" formControlName="cost" placeholder="Valor unitario" required>
+        </div>
+        <div class="form-group">
+          <label for="type">Tipo</label>
+          <!-- <input type="text" formControlName="type" placeholder="Tipo" required> -->
+          <select formControlName="type">
+            <option *ngFor="let t of transactionTypes" [value]="t">{{ t }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="concept">Concepto</label>
+          <input type="text" formControlName="concept" placeholder="Concepto" required>
+        </div>
+        <div class="form-group m-4">
+          <button type="submit" [disabled]="transactionForm.invalid">Agregar</button>
+        </div>
+      </form>
+
+    </div>
+
+    <!-- Tabla de transacciones -->
+     <div class="col-6">
+      <h2>Lista de Transacciones</h2>
+       <table>
+         <thead>
+           <tr>
+             <th>Fecha</th>
+             <th>Concepto</th>
+             <th>Tipo</th>
+             <th>Cantidad</th>
+             <th>Valor unitario</th>
+             <th>Valor total</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let transaction of transactions">
+             <td>{{ transaction.transactionDate }}</td>
+             <td>{{ transaction.concept }}</td>
+             <td>{{ transaction.type }}</td>
+             <td>{{ transaction.amount }}</td>
+             <td>{{ formatCurrency(transaction.cost) }}</td>
+             <td>{{ formatCurrency(transaction.cost * transaction.amount) }}</td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+  </div>
+</div>

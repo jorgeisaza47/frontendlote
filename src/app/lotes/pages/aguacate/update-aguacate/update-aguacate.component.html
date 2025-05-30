@@ -1,0 +1,52 @@
+<div class="form-container">
+  <h2>Actualizar Aguacate</h2>
+  <form [formGroup]="aguacateForm" (ngSubmit)="onSubmit()">
+
+    <!-- Árboles -->
+    <div class="form-group">
+      <label>Total de Árboles</label>
+      <input type="number" formControlName="totalTrees">
+    </div>
+
+    <!-- Fertilización -->
+    <div class="form-group">
+      <label>Fechas de Fertilización</label>
+      <button type="button" (click)="addFertilizerDate()">Agregar</button>
+      <div formArrayName="fertilizerDate">
+        <div *ngFor="let control of fertilizerDates.controls; let i = index">
+          <input type="date" [formControlName]="i">
+          <button type="button" (click)="removeFertilizerDate(i)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plantación -->
+    <div class="form-group">
+      <label>Fechas de Plantación</label>
+      <button type="button" (click)="addPlantingDate()">Agregar</button>
+      <div formArrayName="plantingDate">
+        <div *ngFor="let control of plantingDates.controls; let i = index">
+          <input type="date" [formControlName]="i">
+          <button type="button" (click)="removePlantingDate(i)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fumigación -->
+    <div class="form-group">
+      <label>Fechas de Fumigación</label>
+      <button type="button" (click)="addFumigatedDate()">Agregar</button>
+      <div formArrayName="fumigatedDate">
+        <div *ngFor="let group of fumigatedDates.controls; let i = index" [formGroupName]="i">
+          <input type="date" formControlName="date">
+          <input type="text" formControlName="veneno" placeholder="Veneno aplicado">
+          <button type="button" (click)="removeFumigatedDate(i)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <button type="submit" [disabled]="aguacateForm.invalid">Actualizar</button>
+  </form>
+</div>

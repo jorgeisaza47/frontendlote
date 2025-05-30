@@ -1,0 +1,55 @@
+<div class="m-2">
+  <button [routerLink]="['/crear-transaccion']" class="btn create">Crear transacción</button>
+</div>
+
+<div class="container">
+<div class="row">
+  <div class="col-3">
+    <label class="m-2" for="yearSelect">Selecciona un año:</label>
+    <select id="yearSelect" [(ngModel)]="selectedYear" (change)="calculateTotalCost()">
+      <option *ngFor="let year of yearOptions" [value]="year">{{ year }}</option>
+    </select>
+
+  </div>
+  <div class="col-3">
+    <h5>Total Ingresos {{ selectedYear }}</h5>
+    <h5 class="egresos">  {{ formatCurrency(totalCostByYear) }}</h5>
+  </div>
+
+  <div class="col-3">
+    <h5>Total Egresos {{ selectedYear }}</h5>
+    <h5 class="egresos"> {{ formatCurrency(totalCostByEgreso) }}</h5>
+  </div>
+
+  <div class="col-3">
+    <h5>Utilidades {{ selectedYear }}</h5>
+    <h5  *ngIf="utility > 0" class="mayorCero"> {{ formatCurrency(utility) }}</h5>
+    <h5  *ngIf="utility < 0" class="menorCero"> {{ formatCurrency(utility) }}</h5>
+    <h5  *ngIf="utility == 0" [ngStyle]="estaResaltado ? {'background-color': 'white', 'border': '2px solid orange'} : {}"> {{ formatCurrency(utility) }}</h5>
+  </div>
+  <div class="col-9 m-3">
+      <h2>Lista de Transacciones</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Cantidad</th>
+            <th>Valor</th>
+            <th>Tipo</th>
+            <th>Concepto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of transactions">
+            <td>{{ transaction.transactionDate | formatDate }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ formatCurrency(transaction.cost) }}</td>
+            <!-- <td>{{ transaction.cost | currency:'COP':'symbol-narrow':'1.0-2':'es-CO' }}</td> -->
+            <td>{{ transaction.type }}</td>
+            <td>{{ transaction.concept }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

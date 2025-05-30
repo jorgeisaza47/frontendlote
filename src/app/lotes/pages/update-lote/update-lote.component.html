@@ -1,0 +1,96 @@
+<div class="form-container">
+  <h2>Registrar Lote</h2>
+  <form [formGroup]="loteForm" (ngSubmit)="onSubmit()">
+    <!-- ID -->
+
+
+    <!-- Nombre -->
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input id="name" formControlName="name" type="text">
+      <div *ngIf="loteForm.get('name')!.invalid && loteForm.get('name')!.touched" class="error-message">
+        El nombre es requerido.
+      </div>
+    </div>
+
+    <!-- Total de Árboles -->
+    <div class="form-group">
+      <label for="totalTrees">Total de Árboles:</label>
+      <input id="totalTrees" formControlName="totalTrees" type="number">
+      <div *ngIf="loteForm.get('totalTrees')!.invalid && loteForm.get('totalTrees')!.touched" class="error-message">
+        El total de árboles es requerido y debe ser mayor o igual a 0.
+      </div>
+    </div>
+    <!-- Fecha de Siembra -->
+    <div class="form-group">
+      <label>Fechas de Sembrado:</label>
+      <button type="button" (click)="addPlantingDate()">Agregar Fecha</button>
+      <div formArrayName="plantingDate">
+        <div *ngFor="let date of plantingDates.controls; let i = index">
+          <input [formControlName]="i" type="date">
+        </div>
+      </div>
+    </div>
+
+    <!-- Fechas de Fertilización -->
+    <div class="form-group">
+      <label>Fechas de Fertilización:</label>
+      <button type="button" (click)="addFertilizerDate()">Agregar Fecha</button>
+      <div formArrayName="fertilizerDate">
+        <div *ngFor="let date of fertilizerDates.controls; let i = index">
+          <input [formControlName]="i" type="date">
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Fechas de Limpieza -->
+    <div class="form-group">
+      <label>Fechas de Limpieza:</label>
+      <button type="button" (click)="addCleanedDate()">Agregar Fecha</button>
+      <div formArrayName="cleanedDate">
+        <div *ngFor="let date of cleanedDates.controls; let i = index">
+          <input [formControlName]="i" type="date">
+        </div>
+      </div>
+    </div>
+
+    <!-- Número de Resiembras -->
+    <div class="form-group">
+      <label for="numberReseeding">Número de Resiembras:</label>
+      <input id="numberReseeding" formControlName="numberReseeding" type="number">
+      <div *ngIf="loteForm.get('numberReseeding')!.invalid && loteForm.get('numberReseeding')!.touched" class="error-message">
+        El número de resiembras es requerido y debe ser mayor o igual a 0.
+      </div>
+    </div>
+
+    <!-- Fechas de Resiembra -->
+    <div class="form-group">
+      <label>Fechas de Resiembra:</label>
+      <button type="button" (click)="addReseedingDate()">Agregar Fecha</button>
+      <div formArrayName="reseedingDate">
+        <div *ngFor="let date of reseedingDates.controls; let i = index">
+          <input [formControlName]="i" type="date">
+        </div>
+      </div>
+    </div>
+
+    <!-- Fechas de Fumigación -->
+    <div class="form-group">
+      <label>Fechas de Fumigación:</label>
+      <button type="button" (click)="addFumigatedDate()">Agregar Fecha</button>
+      <div formArrayName="fumigatedDate">
+        <div *ngFor="let date of fumigatedDates.controls; let i = index">
+          <input type="date" formControlName="date" />
+          <input type="text" formControlName="veneno" placeholder="Veneno usado" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón de Envío -->
+    <button type="submit" [disabled]="loteForm.invalid">Actualizar Lote</button>
+  </form>
+</div>
+
+
+

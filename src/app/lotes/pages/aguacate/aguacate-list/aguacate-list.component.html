@@ -1,0 +1,131 @@
+<div class="container">
+  <h2>Lista de Aguacates</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Total Árboles</th>
+        <th>Fechas Fertilización</th>
+        <th>Fechas Fumigación</th>
+        <th>Fechas Sembrado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let aguacate of aguacates">
+        <td>{{ aguacate.totalTrees }}</td>
+        <td>
+          <button class="btn btn-info" *ngFor="let fertilizer of [aguacate.fertilizerDate]"
+          (click)="setSelectedAguacate(aguacate)" data-bs-toggle="modal" data-bs-target="#fertilizerModal">
+          {{ fertilizer[0] | formatDate }}</button>
+        </td>
+        <td>
+          <button class="btn btn-info" (click)="setSelectedAguacate(aguacate)"
+            *ngFor="let fumigated of [aguacate.fumigatedDate]" data-bs-toggle="modal" data-bs-target="#fumigatedModal">
+            {{ fumigated[0].date | formatDate }}- {{ fumigated[0].veneno}}
+
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-info" (click)="setSelectedAguacate(aguacate)"
+            *ngFor="let planting of [aguacate.plantingDate]">
+            {{ planting[0] | formatDate }}
+
+          </button>
+        </td>
+        <td>
+          <button [routerLink]="['/actualizar-aguacate', aguacate.id]" class="btn btn-warning">Actualizar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="fumigatedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Historial de Fumigada</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="selectedAguacate">
+        <div class=" mb-3">
+
+        </div>
+
+        <div class="">
+          <div class="card-body">
+            <!-- <h6 class="card-subtitle mb-3 text-muted">Última fumigada: {{ selectedAguacate.fumigatedDate[0] | formatDate }}</h6> -->
+
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let fumigated of selectedAguacate.fumigatedDate; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ fumigated.date | formatDate }} - {{ fumigated.veneno}}</td>
+                </tr>
+                <tr *ngIf="selectedAguacate.fumigatedDate.length === 0">
+                  <td colspan="2" class="text-center text-muted">No hay registros de fumigada</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="fertilizerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Historial de abonadas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="selectedAguacate">
+        <div class=" mb-3">
+
+        </div>
+
+        <div class="">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-3 text-muted">Última abonada: {{ selectedAguacate.fertilizerDate[0] | formatDate }}</h6>
+
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let date of selectedAguacate.fertilizerDate; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ date | formatDate }}</td>
+                </tr>
+                <tr *ngIf="selectedAguacate.fertilizerDate.length === 0">
+                  <td colspan="2" class="text-center text-muted">No hay registros de abonada</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
