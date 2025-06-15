@@ -44,16 +44,12 @@ export class UpdateLoteComponent implements OnInit {
         totalTrees: lote.totalTrees,
         numberReseeding: lote.numberReseeding,
       });
-      const fumigatedAsObjects = lote.fumigatedDate.map((f: string) => ({
-        date: f,
-        veneno: ''
-      }));
 
       this.setFormArray(this.fertilizerDates, lote.fertilizerDate);
       this.setFormArray(this.plantingDates, lote.plantingDate);
       this.setFormArray(this.cleanedDates, lote.cleanedDate);
       this.setFormArray(this.reseedingDates, lote.reseedingDate);
-      // this.setFumigatedFormArray(fumigatedAsObjects);
+      this.setFumigatedFormArray(lote.fumigatedDate);
     });
   }
 
@@ -90,7 +86,7 @@ export class UpdateLoteComponent implements OnInit {
     this.fumigatedDates.clear();
     values.forEach(value => {
       this.fumigatedDates.push(this.fb.group({
-        date: [value.date],
+        date: [this.formatDate(value.date)],
         veneno: [value.veneno]
       }));
     });
@@ -129,8 +125,13 @@ export class UpdateLoteComponent implements OnInit {
     const updatedLote: Lote = this.loteForm.value;
 
     this.loteService.updateLote(this.loteId, updatedLote).subscribe(() => {
-      console.log('lote', updatedLote);
       this.router.navigate(['/lote-list']);
     });
+  }
+
+  private formatDate(dateStr: string): string {
+    if (!dateStr) return ''; // Previene errores con valores vacíos o nulos
+    const date = new Date(dateStr);
+    return isNaN(date.getTime()) ? '' : date.toISOString().split('T')[0];
   }
 }

@@ -1,5 +1,5 @@
 <div class="form-container">
-  <h2>Registrar Lote</h2>
+  <h2>Actualizar Lote</h2>
   <form [formGroup]="loteForm" (ngSubmit)="onSubmit()">
     <!-- ID -->
 
@@ -80,7 +80,7 @@
       <label>Fechas de Fumigación:</label>
       <button type="button" (click)="addFumigatedDate()">Agregar Fecha</button>
       <div formArrayName="fumigatedDate">
-        <div *ngFor="let date of fumigatedDates.controls; let i = index">
+        <div *ngFor="let date of fumigatedDates.controls; let i = index" [formGroupName]="i">
           <input type="date" formControlName="date" />
           <input type="text" formControlName="veneno" placeholder="Veneno usado" />
         </div>

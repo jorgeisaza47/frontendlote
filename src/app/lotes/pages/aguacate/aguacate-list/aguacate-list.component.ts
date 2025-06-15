@@ -25,7 +25,6 @@ export class AguacateListComponent implements OnInit {
     this.aguacateService.getAguacates()
     .subscribe(aguacate => {
       this.aguacates = aguacate;
-      console.log('aguacate', aguacate[0])
       })
   }
 

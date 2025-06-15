@@ -1,3 +1,11 @@
+export class FumigatedDate {
+  constructor(
+    public date: string,
+    public veneno: string,
+  ) {}
+}
+
+
 export class Lote {
   constructor(
     public id: string,
@@ -8,7 +16,7 @@ export class Lote {
     public cleanedDate: string[],
     public numberReseeding: number,
     public reseedingDate: string[],
-    public fumigatedDate: string[],
+    public fumigatedDate: FumigatedDate[],
   ) {}
 
 }

@@ -16,6 +16,7 @@ import { AguacateListComponent } from './pages/aguacate/aguacate-list/aguacate-l
 import { UpdateAguacateComponent } from './pages/aguacate/update-aguacate/update-aguacate.component';
 import { TransactionLoteComponent } from './pages/transaction/list-transaction/transaction-lote.component';
 import { CreateTrasactionComponent } from './pages/transaction/create-trasaction/create-trasaction.component';
+import { OrderByDatePipe } from './pipes/date-asc.pipe';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { CreateTrasactionComponent } from './pages/transaction/create-trasaction
     LoteListComponent,
     DateFormatterPipe,
     FormatDatePipe,
+    OrderByDatePipe,
     CafeComponent,
     CreateLoteComponent,
     UpdateLoteComponent,
