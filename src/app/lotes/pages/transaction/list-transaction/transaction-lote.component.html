@@ -43,7 +43,7 @@
           <tr *ngFor="let transaction of transactions">
             <td>{{ transaction.transactionDate | formatDate }}</td>
             <td>{{ transaction.amount }}</td>
-            <td>{{ formatCurrency(transaction.cost) }}</td>
+            <td>{{ formatCurrency(transaction.cost * transaction.amount) }}</td>
             <!-- <td>{{ transaction.cost | currency:'COP':'symbol-narrow':'1.0-2':'es-CO' }}</td> -->
             <td>{{ transaction.type }}</td>
             <td>{{ transaction.concept }}</td>

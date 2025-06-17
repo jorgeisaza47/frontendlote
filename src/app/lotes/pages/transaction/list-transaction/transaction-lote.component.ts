@@ -55,7 +55,7 @@ export class TransactionLoteComponent implements OnInit {
   calculateTotalCostByYear(year: number): number {
     return this.transactions
       .filter(transaction => new Date(transaction.transactionDate).getFullYear() === year && transaction.type === 'Ingreso')
-      .reduce((sum, transaction) => sum + (transaction?.cost  ?? 0), 0);
+      .reduce((sum, transaction) => sum + (transaction?.cost  ?? 0 ), 0);
   }
 
   calculateTotalEgrosos() {
@@ -67,7 +67,7 @@ export class TransactionLoteComponent implements OnInit {
   calculateTotalByEgresos(year: number): number {
     return this.transactions
       .filter(transaction => new Date(transaction.transactionDate).getFullYear() === year && transaction.type === 'Egreso')
-      .reduce((sum, transaction) => sum + (transaction?.cost  ?? 0), 0);
+      .reduce((sum, transaction) => sum + (transaction?.cost   ?? 0) * (transaction?.amount), 0);
   }
 
   generateYearOptions() {
